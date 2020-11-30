@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 
 @SpringBootApplication
 public class WikiTableParserApplication implements CommandLineRunner {
+	private final String url;
 	private final String wikiTableTag;
 
 	private final String yDataPatternString;
@@ -31,6 +32,7 @@ public class WikiTableParserApplication implements CommandLineRunner {
 	}
 
 	public WikiTableParserApplication(
+			@Value("${url}") final String url,
 			@Value("${wikiTableTag}") final String wikiTableTag,
 			@Value("${xDataPatternString.regexp}") final String xDataPatternString,
 			@Value("${yDataPatternString.regexp}") final String yDataPatternString,
@@ -39,6 +41,7 @@ public class WikiTableParserApplication implements CommandLineRunner {
 			@Value("${xDataGroupPosition}") final int xDataGroupPosition,
 			@Value("${yDataGroupPosition}") final int yDataGroupPosition
 	) {
+		this.url = url;
 		this.wikiTableTag = wikiTableTag;
 		this.xDataPatternString = xDataPatternString;
 		this.yDataPatternString = yDataPatternString;
@@ -51,15 +54,15 @@ public class WikiTableParserApplication implements CommandLineRunner {
 
 	@Override
 	public void run(String... args) throws Exception {
-		if (args.length < 1) {
-			System.out.println("Please pass the Wiki URL as the first parameter while executing");
+		if (url == null || url.isEmpty()) {
+			System.out.println("Please configure the Wiki URL in the properties file");
 			return;
 		}
 
 		HtmlParser wikiParser = new WikiParser(wikiTableTag, xDataPatternString, yDataPatternString, xDataColumnNumber, yDataColumnNumber, xDataGroupPosition, yDataGroupPosition);
 		GraphOutput lineGraphOutput = new LineGraphOutput();
 
-		lineGraphOutput.drawChart(wikiParser.parse(args[0]));
+		lineGraphOutput.drawChart(wikiParser.parse(url));
 	}
 
 }
