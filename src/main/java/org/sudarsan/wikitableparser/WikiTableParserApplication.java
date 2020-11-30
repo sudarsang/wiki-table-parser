@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.sudarsan.wikitableparser.chart.GraphOutput;
+import org.sudarsan.wikitableparser.chart.LineGraphOutput;
 import org.sudarsan.wikitableparser.domain.ChartData;
 import org.sudarsan.wikitableparser.parser.HtmlParser;
 import org.sudarsan.wikitableparser.parser.WikiParser;
@@ -55,8 +57,9 @@ public class WikiTableParserApplication implements CommandLineRunner {
 		}
 
 		HtmlParser wikiParser = new WikiParser(wikiTableTag, xDataPatternString, yDataPatternString, xDataColumnNumber, yDataColumnNumber, xDataGroupPosition, yDataGroupPosition);
-		List<ChartData> chartData = wikiParser.parse(args[0]);
-		System.out.println("chartData = " + chartData.size());
+		GraphOutput lineGraphOutput = new LineGraphOutput();
+
+		lineGraphOutput.drawChart(wikiParser.parse(args[0]));
 	}
 
 }

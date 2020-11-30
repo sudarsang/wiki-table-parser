@@ -52,7 +52,7 @@ public class WikiParser implements HtmlParser {
      */
     @Override
     public List<ChartData> parse(String url) {
-        if(url == null || url.equals("")) {
+        if(url == null || url.isEmpty()) {
             System.out.println("WikiParser.parse: URL cannot be null or empty");
             return null;
         }
