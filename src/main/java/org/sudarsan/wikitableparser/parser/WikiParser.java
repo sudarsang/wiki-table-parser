@@ -56,6 +56,7 @@ public class WikiParser implements HtmlParser {
             System.out.println("WikiParser.parse: URL cannot be null or empty");
             return null;
         }
+        System.out.printf("Extracting table information from wiki URL: %s \n", url);
         try {
             Document document = Jsoup.connect(url).get();
 
