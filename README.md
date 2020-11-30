@@ -7,9 +7,11 @@ This is a Spring Boot based Java application to generate chart from a Wiki URL g
 * The application is designed keeping in mind that requirements might evolve and the application can be extended to support that. Eg: Change to the Line chart style, introducing new chart types
 
 ### Design thought process
+![Design thought proces](https://github.com/sudarsang/wiki-table-parser/blob/master/assets/design-thought-process.jpg?raw=true)
 
 ## Assumptions
-* Reasonable assumption was made to decide which column in the table wil be forming the X axis and which will be  Y axis.
+* Assumption was made config input can be provided to help decide which columns to extract. 
+* Assumption was made that a line chart will be produced.
 * It's assumed it's required to extract Wiki pages with only one table. 
 * Some table information contains additional details, so necessary data formatting required before generating the chart. Generifying this formatting is not required for this application at this stage. Eg: The height in the sample Wiki page has data both in meter & inches.
 
